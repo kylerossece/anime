@@ -1,4 +1,4 @@
-const getPages = async (query: string): Promise<unknown | null> => {
+const getPages = async (query?: string, variable?: string | number ): Promise<unknown | null> => {
   //       const query = `
   //     query ($id: Int) {
   //       Media(id: $id, type: ANIME) {
@@ -20,7 +20,7 @@ const getPages = async (query: string): Promise<unknown | null> => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query, variable }),
     });
 
     if (!res.ok) {
