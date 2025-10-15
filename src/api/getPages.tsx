@@ -1,4 +1,4 @@
-const getPages = async (query: string): Promise<any | null> => {
+const getPages = async (query: string): Promise<unknown | null> => {
   //       const query = `
   //     query ($id: Int) {
   //       Media(id: $id, type: ANIME) {

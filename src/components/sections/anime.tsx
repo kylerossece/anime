@@ -1,39 +1,49 @@
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { getPages } from "@/api/getPages";
+import {Slider} from '@/components/sections/slider'
 const Anime = async () => {
-  const query = `query  {
-  Page(page: 1, perPage: 25) {
-      pageInfo {
-      total
-      currentPage
-      lastPage
-      hasNextPage
-      perPage
-    }
-    media(sort: TRENDING_DESC) {
-      
-      averageScore
-      title {
-        english
-        native
+
+  // pageInfo {
+  //   total
+  //   currentPage
+  //   lastPage
+  //   hasNextPage
+  //   perPage
+  // }
+
+
+  const query = (sortType: string) => {
+    return  `query  {
+    Page(page: 1, perPage: 25) {
+      media(sort: ${sortType}) {
+        
+        averageScore
+        title {
+          english
+          native
+        }
+        genres
+        seasonYear
+        coverImage {
+          color
+          large
+        }
+        meanScore
+        id
       }
-      genres
-      seasonYear
-      bannerImage
-      coverImage {
-        color
-        large
-      }
-      meanScore
-      description
     }
+  }`
   }
-}`;
-  const pages = await getPages(query);
+  let trendingData = await getPages(query("TRENDING_DESC"));
+  trendingData = trendingData?.Page?.media || [];
+
   return (
     <Section>
-      <Container>{JSON.stringify(pages)}</Container>
+      <Container>
+
+      <Slider animeData={trendingData}></Slider>
+      </Container>
     </Section>
   );
 };
