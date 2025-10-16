@@ -3,12 +3,12 @@ import { Container } from "@/components/ui/container";
 import { getAnime } from "@/api/getAnime";
 import { Slider } from "@/components/sections/slider";
 import { query } from "@/query/page";
-import type { PageResponse } from "@/types/types";
+import type { PageItem, PageResponse } from "@/types/types";
 const Anime = async () => {
   const data = (await getAnime(query("TRENDING_DESC"))) as PageResponse | null;
   if (!data) return;
-  // @ts-ignore
-  let trendingData = data?.Page?.media || [];
+
+  let trendingData: PageItem[] = data?.Page?.media || [];
 
   return (
     <Section>

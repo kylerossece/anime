@@ -13,6 +13,7 @@ const query = (sortType: string) => {
         coverImage {
           color
           large
+          extraLarge
         }
         meanScore
         id
