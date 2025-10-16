@@ -1,18 +1,7 @@
-const getPages = async (query?: string, variable?: string | number ): Promise<unknown | null> => {
-  //       const query = `
-  //     query ($id: Int) {
-  //       Media(id: $id, type: ANIME) {
-  //         id
-  //         title {
-  //           romaji
-  //           english
-  //         }
-  //         coverImage {
-  //           large
-  //         }
-  //       }
-  //     }
-  //   `;
+const getAnime = async (
+  query?: string,
+  variables?: { [key: string]: any }
+): Promise<unknown | null> => {
   try {
     const res = await fetch("https://graphql.anilist.co", {
       method: "POST",
@@ -20,7 +9,7 @@ const getPages = async (query?: string, variable?: string | number ): Promise<un
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify({ query, variable }),
+      body: JSON.stringify({ query, variables }),
     });
 
     if (!res.ok) {
@@ -36,7 +25,7 @@ const getPages = async (query?: string, variable?: string | number ): Promise<un
   }
 };
 
-export { getPages };
+export { getAnime };
 
 // SCORE_DESC – Sort by highest average score
 
