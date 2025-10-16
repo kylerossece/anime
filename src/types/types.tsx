@@ -9,7 +9,21 @@ export interface Media {
     extraLarge: string;
     color: string | null;
   };
+  format: string;
+  favourites: string;
+  source: string;
+  season: string;
   bannerImage: string;
+  startDate: {
+    day?: number;
+    month?: number;
+    year?: number;
+  };
+  endDate: {
+    day?: number;
+    month?: number;
+    year?: number;
+  };
   characters: {
     nodes: Array<{
       dateOfBirth: {

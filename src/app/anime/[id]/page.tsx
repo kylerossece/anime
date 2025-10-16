@@ -41,26 +41,33 @@ export default async function Page({ params }: PageProps) {
           className="object-cover"
         ></Image>
       </div> */}
-      <Section>
+      <Section className="text-gray-900">
         <Container className="">
-          <Header className="font-medium text-2xl">{item.title.english}</Header>
-          <Image
-            src={item.coverImage.extraLarge}
-            alt={item.title.english}
-            width={200}
-            height={100}
-            className="rounded"
-          ></Image>
-          <Separator />
-
-          <Paragraph
-            className="text-sm"
-            dangerouslySetInnerHTML={{ __html: item.description }}
-          ></Paragraph>
-
-          <div className="break-words whitespace-pre-wrap">
-            {JSON.stringify(anime?.Media)}
-          </div>
+          <Card>
+            <div className="flex gap-6 md:flex-nowrap flex-wrap px-6">
+              <Image
+                src={item.coverImage.extraLarge}
+                alt={item.title.english}
+                width={300}
+                height={100}
+                className="rounded"
+              ></Image>
+              <div className="flex flex-col gap-2 mt-2">
+                <Header className="font-medium text-2xl">
+                  {item.title.english}
+                </Header>
+                <Paragraph
+                  className="text-sm"
+                  dangerouslySetInnerHTML={{ __html: item.description }}
+                ></Paragraph>
+              </div>
+            </div>
+            <Separator className="mt-2  bg-slate-200" />
+            <div></div>
+            <div className="break-words whitespace-pre-wrap">
+              {JSON.stringify(anime?.Media)}
+            </div>
+          </Card>
         </Container>
       </Section>
     </>

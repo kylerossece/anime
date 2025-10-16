@@ -4,6 +4,7 @@ import { getAnime } from "@/api/getAnime";
 import { Slider } from "@/components/sections/slider";
 import { query } from "@/query/page";
 import type { PageItem, PageResponse } from "@/types/types";
+
 const Anime = async () => {
   const data = (await getAnime(query("TRENDING_DESC"))) as PageResponse | null;
   if (!data) return;

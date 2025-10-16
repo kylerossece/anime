@@ -14,10 +14,24 @@ const query = () => {
         }
         description
         countryOfOrigin
+        format
+          favourites
+            source
+        season
         coverImage {
         extraLarge
         color
         }
+            startDate {
+      day
+      month
+      year
+    }
+         endDate {
+      day
+      month
+      year
+    }
         bannerImage
         characters {
         nodes {
