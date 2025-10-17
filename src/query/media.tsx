@@ -56,6 +56,23 @@ const query = () => {
         site
         thumbnail
         }
+           relations {
+      nodes {
+         id
+        type
+        status
+        source
+        bannerImage
+             coverImage {
+          extraLarge
+        }
+        title {
+          native
+          english
+          userPreferred
+            }
+        }
+        }
         meanScore
         popularity
         rankings {

@@ -7,7 +7,8 @@ import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Paragraph, Header, Caption } from "@/components/ui/typography";
-import { GridOne } from "@/components/ui/grid-one";
+import { GridOne } from "@/components/sections/grid-one";
+import { GridTwo } from "@/components/sections/grid-two";
 interface PageProps {
   params: any;
 }
@@ -57,7 +58,7 @@ export default async function Page({ params }: PageProps) {
             </div>
             <Separator className="mt-3  bg-slate-200" />
 
-            <div className="flex  items-center lg:flex-nowrap flex-wrap">
+            <div className="flex  lg:flex-nowrap flex-wrap">
               <GridOne item={item} />
 
               <Separator
@@ -65,7 +66,7 @@ export default async function Page({ params }: PageProps) {
                 className="w-px  self-stretch !h-auto bg-slate-300 lg:block hidden  "
               />
 
-              <div className="lg:w-4/5 w-full  text-center z-50">Item 2</div>
+              <GridTwo item={item} />
             </div>
             <Separator className=" bg-slate-200" />
           </Card>

@@ -1,11 +1,17 @@
+"use client";
 import type { Media } from "@/types/types";
 import { Paragraph, Header, Caption } from "@/components/ui/typography";
 import { capitalize, formatDateWithDay } from "@/lib/utils";
+import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Icons } from "@/components/ui/icons";
 interface GridOneProps {
   item: Media;
 }
 const GridOne = ({ item }: GridOneProps) => {
+  const [showTags, setShowTags] = useState<Boolean>(false);
+  const visibleTags = showTags ? item.tags : item.tags.slice(0, 5);
+
   return (
     <div className="lg:w-1/5 w-full flex flex-col gap-3   px-7 py-5 text-sm text-gray-700">
       <div>
@@ -71,12 +77,19 @@ const GridOne = ({ item }: GridOneProps) => {
       <div className="flex flex-col flex-wrap gap-2">
         <Caption className="font-semibold  ">Tags</Caption>
         <Paragraph className="text-gray-700 flex flex-wrap gap-1.5">
-          {item.tags.map((tag) => (
+          {visibleTags.map((tag) => (
             <Badge key={tag.id} variant="secondary" className="text-gray-700">
               {tag.name}
             </Badge>
           ))}
         </Paragraph>
+        <button
+          onClick={() => setShowTags(!showTags)}
+          className="text-xs ps-1 text-center text-gray-700 hover:underline w-fit cursor-pointer flex gap-1 items-center"
+        >
+          {showTags ? "Show less" : "Show more"}{" "}
+          {showTags ? <Icons.ChevronUp /> : <Icons.ChevronDown />}
+        </button>
       </div>
     </div>
   );

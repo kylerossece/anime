@@ -82,10 +82,18 @@ export interface Media {
   }>;
   relations: {
     nodes: Array<{
-      bannerImage: string | null;
+      id: number;
+      source: string | null;
+      type: string;
+      status: string;
+      coverImage: {
+        extraLarge: string;
+      };
+      bannerImage: string;
       title: {
-        native: string | null;
-        english: string | null;
+        native: string;
+        english: string;
+        userPreferred: string;
       };
     }>;
   };
