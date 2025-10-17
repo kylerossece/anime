@@ -24,14 +24,14 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed w-full lg:px-32 px-14 z-40 top-0 bg-slate-800 text-white flex items-center transition-all duration-300 ease-in-out ${
+      className={`fixed w-full lg:px-32 px-14 z-40 top-0 bg-slate-800 text-slate-100 flex items-center transition-all duration-300 ease-in-out ${
         isScrolled ? "h-[4.5rem]" : "h-14"
       }`}
     >
       <Container>
         <div className="grid grid-cols-3">
           <div className="flex items-center">Anime List</div>
-          <nav className="hidden items-center justify-center gap-x-14 lg:flex">
+          <nav className="hidden items-center justify-center gap-x-14 lg:flex text-sm uppercase">
             {links.map(({ href, label }, index) => (
               <Link key={index} href={href}>
                 {label}

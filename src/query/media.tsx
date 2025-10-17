@@ -88,6 +88,7 @@ const query = () => {
         }
         }
         tags {
+        id
         name
         rank
         }

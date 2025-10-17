@@ -17,4 +17,12 @@ const Paragraph = ({ children, className, ...props }: ComponentProps<"p">) => {
   );
 };
 
-export { Header, Paragraph };
+const Caption = ({ children, className, ...props }: ComponentProps<"span">) => {
+  return (
+    <span className={cn("", className)} {...props}>
+      {children}
+    </span>
+  );
+};
+
+export { Header, Paragraph, Caption };

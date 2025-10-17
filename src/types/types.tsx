@@ -76,6 +76,7 @@ export interface Media {
     }>;
   };
   tags: Array<{
+    id: number;
     name: string;
     rank: number;
   }>;
