@@ -25,22 +25,24 @@ const Slider = ({ animeData }: sliderProps) => {
     >
       {animeData.map((item: any, index: number) => {
         return (
+          <>
           <SwiperSlide
             key={index}
-            className="!w-auto flex justify-center items-baseline"
+            className="!w-auto flex justify-start items-baseline"
           >
             <Link href={`anime/${item.id}`}>
-              <div className="relative w-[400px] h-[400px]">
+              <div className="relative w-[300px] h-[300px] me-3">
                 <Image
                   src={item.coverImage.extraLarge}
                   alt={item.title.english || ""}
                   fill
-                  className="object-cover rounded-md"
+                  className="object-cover rounded-md "
                   priority
                 ></Image>
               </div>
             </Link>
           </SwiperSlide>
+          </>
         );
       })}
     </Swiper>

@@ -38,7 +38,7 @@ export default async function Page({ params }: PageProps) {
       <Section className="text-gray-800">
         <Container className="">
           <Card>
-            <div className="flex gap-6 md:flex-nowrap flex-wrap px-6">
+            <div className="flex gap-6 md:flex-nowrap flex-wrap px-6 py-3">
               <Image
                 src={item.coverImage.extraLarge}
                 alt={item.title.english}
@@ -63,7 +63,7 @@ export default async function Page({ params }: PageProps) {
 
               <Separator
                 orientation="vertical"
-                className="w-px  self-stretch !h-auto bg-slate-300 lg:block hidden  "
+                className="w-px self-stretch !h-auto bg-slate-300 lg:block hidden  "
               />
 
               <GridTwo item={item} />
