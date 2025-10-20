@@ -6,15 +6,24 @@ import { query } from "@/query/page";
 import type { PageItem, PageResponse } from "@/types/types";
 
 const Anime = async () => {
-  const data = (await getAnime(query("TRENDING_DESC"))) as PageResponse | null;
-  if (!data) return;
+  const trending = (await getAnime(query("TRENDING_DESC"))) as PageResponse | null;
+  const popular = (await getAnime(query("POPULARITY_DESC"))) as PageResponse | null;
+  const top = (await getAnime(query("SCORE_DESC"))) as PageResponse | null;
 
-  let trendingData: PageItem[] = data?.Page?.media || [];
+
+  if (!trending) return;
+
+ const trendingData: PageItem[] = trending?.Page?.media || [];
+ const popularData: PageItem[] = popular?.Page?.media || [];
+ const topData: PageItem[] = top?.Page?.media || [];
+
 
   return (
     <Section>
-      <Container>
-        <Slider animeData={trendingData}></Slider>
+      <Container className="flex flex-col gap-3 pb-14">
+        <Slider animeData={trendingData} title="Trending"></Slider>
+        <Slider animeData={popularData} title="Popular"></Slider>
+        <Slider animeData={topData} title="Top Rated"></Slider>
       </Container>
     </Section>
   );

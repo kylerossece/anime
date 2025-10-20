@@ -12,17 +12,17 @@ interface GridTwoProps {
 }
 const GridTwo = ({ item }: GridTwoProps) => {
   const relations = item.relations.nodes;
-  const [showRelations, setShowRelations] = useState<Boolean>(false);
+  const [showRelations, setShowRelations] = useState<boolean>(false);
   const visibleRelations = showRelations ? relations : relations.slice(0, 5);
 
   return (
     <div className="lg:w-4/5 w-full  z-50 px-8 py-6 text-gray-700 flex flex-col">
       {relations && relations.length > 0 && (
         <>
-          <Caption className="font-semibold text-base  ">Relations</Caption>
+          <Caption className="font-semibold text-base pb-1">Relations</Caption>
           <div className="flex flex-wrap lg:justify-start justify-center gap-2">
             {visibleRelations.map((relation, index) => (
-              <Card key={index} className="p-0 w-[20rem]">
+              <Card key={index} className="p-0 w-[20rem] shadow-2xs">
                 {relation.coverImage.extraLarge ? (
                   <div className="flex gap-3 w-full  h-full items-start">
                     <div className="relative w-[80px] h-[100px] shrink-0">
@@ -30,7 +30,7 @@ const GridTwo = ({ item }: GridTwoProps) => {
                         src={relation.coverImage.extraLarge}
                         alt={item.title.english || ""}
                         fill
-                        className="object-cover rounded"
+                        className="object-cover"
                       />
                     </div>
                     <Header className="text-wrap text-xs text-gray-700 font-medium mt-2 pe-2">
@@ -54,6 +54,7 @@ const GridTwo = ({ item }: GridTwoProps) => {
           </button>
         </div>
       )}
+      <div className="break-all">{JSON.stringify(item)}</div>
     </div>
   );
 };

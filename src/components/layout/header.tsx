@@ -31,7 +31,7 @@ const Header = () => {
       <Container>
         <div className="grid grid-cols-3">
           <div className="flex items-center">Anime List</div>
-          <nav className="hidden items-center justify-center gap-x-14 lg:flex text-sm uppercase">
+          <nav className="hidden items-center justify-center gap-x-14 lg:flex text-sm uppercase font-medium">
             {links.map(({ href, label }, index) => (
               <Link key={index} href={href}>
                 {label}

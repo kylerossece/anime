@@ -1,6 +1,6 @@
 const getAnime = async (
   query?: string,
-  variables?: { [key: string]: any }
+  variables?: { [key: string]: unknown }
 ): Promise<unknown | null> => {
   try {
     const res = await fetch("https://graphql.anilist.co", {

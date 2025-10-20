@@ -2,6 +2,7 @@ export interface Media {
   title: {
     english: string;
     native: string;
+    userPreferred: string;
   };
   description: string | TrustedHTML;
   countryOfOrigin: string;
@@ -108,6 +109,7 @@ export interface PageItem {
   title: {
     english: string | null;
     native: string | null;
+    userPreferred: string;
   };
   coverImage: {
     color: string | null;

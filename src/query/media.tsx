@@ -11,6 +11,7 @@ const query = () => {
         title {
         english
         native
+        userPreferred
         }
         description
         countryOfOrigin
