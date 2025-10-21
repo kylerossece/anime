@@ -15,7 +15,7 @@ const useScrollNav = ({ threshold = 10 }: { threshold?: number } = {}) => {
     return () => {
       window.removeEventListener("scroll", updateIsScrolled);
     };
-  }, []);
+  });
   return { isScrolled };
 };
 

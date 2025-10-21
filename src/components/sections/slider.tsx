@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
-import { Navigation, Pagination } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import { useState, useRef } from "react";
 import { Swiper as SwiperClass } from "swiper/types";
 import Image from "next/image";
@@ -27,6 +27,7 @@ const Slider = ({ animeData, className, title }: sliderProps) => {
   const scrollNextSlide = () => {
     swiperRef.current?.slideNext();
   };
+  console.log(activeIndex)
   return (
     <div className={cn('pt-8', className)}>
       <div className="w-full mb-2 flex justify-between items-end">

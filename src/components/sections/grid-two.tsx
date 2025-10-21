@@ -1,18 +1,47 @@
 "use client";
 import type { Media } from "@/types/types";
-import { Paragraph, Header, Caption } from "@/components/ui/typography";
+import { Header, Caption } from "@/components/ui/typography";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
-import { capitalize, formatDateWithDay } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
+import { capitalize } from "@/lib/utils";
+// import { Badge } from "@/components/ui/badge";
 import React, { useState } from "react";
 import { Icons } from "@/components/ui/icons";
+import type { ApexOptions } from "apexcharts";
+
+import dynamic from "next/dynamic";
+const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
+
 interface GridTwoProps {
   item: Media;
 }
 const GridTwo = ({ item }: GridTwoProps) => {
   const relations = item.relations.nodes;
   const [showRelations, setShowRelations] = useState<boolean>(false);
+  const status = item.stats.statusDistribution;
+  const series: number[] = status.map((stat) => stat.amount);
+
+  const options: ApexOptions = {
+    chart: {
+      type: "donut",
+    },
+    labels: status.map((stat) => capitalize(stat.status)), 
+    legend: {
+      show: false
+    },
+    dataLabels: {
+      enabled: true,
+      formatter: function (val: number) {
+        return `${Math.round(val)}%`;
+      },
+      style: {
+        fontSize: '12px',
+        fontWeight: 'bold',
+        colors: ['#fff'], 
+      },
+    },
+  };
+
   const visibleRelations = showRelations ? relations : relations.slice(0, 5);
 
   return (
@@ -54,7 +83,21 @@ const GridTwo = ({ item }: GridTwoProps) => {
           </button>
         </div>
       )}
-      <div className="break-all">{JSON.stringify(item)}</div>
+      <div className="flex lg:flex-row flex-col grow gap-2 pt-8" >
+        <div className="lg:w-1/2">
+        <Caption className="font-semibold text-base pb-1">Status Distribution</Caption>
+        <div className="p-0 w-full flex justify-center pt-2">
+            <ApexChart  type="donut" series={series || []} options={options}  width={175}
+  height={175}></ApexChart>
+        </div>
+        </div>
+        <div className="lg:w-1/2">
+        <Caption className="font-semibold text-base pb-1">Score Distribution</Caption>
+        <div className="p-0">
+          
+        </div>
+        </div>
+      </div>
     </div>
   );
 };

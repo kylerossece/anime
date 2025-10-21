@@ -1,6 +1,6 @@
 "use client";
 import type { Media } from "@/types/types";
-import { Paragraph, Header, Caption } from "@/components/ui/typography";
+import { Paragraph,Caption } from "@/components/ui/typography";
 import { capitalize, formatDateWithDay } from "@/lib/utils";
 import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -9,7 +9,7 @@ interface GridOneProps {
   item: Media;
 }
 const GridOne = ({ item }: GridOneProps) => {
-  const [showTags, setShowTags] = useState<Boolean>(false);
+  const [showTags, setShowTags] = useState<boolean>(false);
   const visibleTags = showTags ? item.tags : item.tags.slice(0, 5);
 
   return (

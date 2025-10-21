@@ -6,11 +6,11 @@ import type { Media } from "@/types/types";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Paragraph, Header, Caption } from "@/components/ui/typography";
+import { Paragraph, Header } from "@/components/ui/typography";
 import { GridOne } from "@/components/sections/grid-one";
 import { GridTwo } from "@/components/sections/grid-two";
 interface PageProps {
-  params: any;
+  params: { id: string };
 }
 
 interface GetAnime {
