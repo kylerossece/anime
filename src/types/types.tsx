@@ -119,6 +119,12 @@ export interface PageItem {
 }
 
 export interface PageData {
+  pageInfo:{
+    total: number;
+    currentPage: number;
+    lastPage: number;
+    hasNextPage: boolean;
+  }
   media: PageItem[];
 }
 

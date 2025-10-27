@@ -1,11 +1,5 @@
 const query = () => {
-  // pageInfo {
-  //   total
-  //   currentPage
-  //   lastPage
-  //   hasNextPage
-  //   perPage
-  // }
+
   return `query Title($mediaId: Int) {
     Media(id: $mediaId) {
         title {

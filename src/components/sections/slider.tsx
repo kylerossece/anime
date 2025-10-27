@@ -33,8 +33,8 @@ const Slider = ({ animeData, className, title }: sliderProps) => {
       <div className="w-full mb-2 flex justify-between items-end">
         <p className="uppercase font-semibold text-lg leading-5 text-gray-700">{title}</p>
         <p className="flex gap-1.5">
-        <span className="cursor-pointer p-2 bg-gray-200 rounded-full hover:bg-gray-800 hover:text-white" onClick={scrollPreviousSlide}><Icons.ChevronLeft /></span>
-        <span className="cursor-pointer p-2  bg-gray-200 rounded-full hover:bg-gray-800 hover:text-white" onClick={scrollNextSlide}><Icons.ChevronRight /></span>
+        <span className="cursor-pointer p-2 bg-gray-200 rounded-full hover:bg-gray-800 hover:text-white transition-all duration-200 ease-in" onClick={scrollPreviousSlide}><Icons.ChevronLeft /></span>
+        <span className="cursor-pointer p-2  bg-gray-200 rounded-full hover:bg-gray-800 hover:text-white transition-all duration-200 ease-in" onClick={scrollNextSlide}><Icons.ChevronRight /></span>
         </p>
       </div>
     <Swiper
@@ -67,6 +67,7 @@ const Slider = ({ animeData, className, title }: sliderProps) => {
             <Link href={`anime/${item.id}`}>
             <div className="w-[250px]">
             <div className="relative h-[325px] shadow-lg rounded-md">
+
               <Image
                 src={item.coverImage.extraLarge}
                 alt={item.title.userPreferred || ""}
