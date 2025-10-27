@@ -7,7 +7,7 @@ const query = (sortType: string, page?:number, perPage?: number) => {
         currentPage
         lastPage
         hasNextPage
-        perPage
+
       }
       media(sort: ${sortType}) {
           
