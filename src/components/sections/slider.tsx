@@ -4,7 +4,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
 import { Pagination } from "swiper/modules";
-import { useState, useRef } from "react";
+// useState, 
+import { useRef } from "react";
 import { Swiper as SwiperClass } from "swiper/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,7 +19,7 @@ interface sliderProps {
   title?: string;
 }
 const Slider = ({ animeData, className, title }: sliderProps) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  // const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperClass | null>(null);
 
   const scrollPreviousSlide = () => {
@@ -27,7 +28,7 @@ const Slider = ({ animeData, className, title }: sliderProps) => {
   const scrollNextSlide = () => {
     swiperRef.current?.slideNext();
   };
-  console.log(activeIndex)
+  // console.log(activeIndex)
   return (
     <div className={cn('pt-8', className)}>
       <div className="w-full mb-2 flex justify-between items-end">
@@ -54,7 +55,7 @@ const Slider = ({ animeData, className, title }: sliderProps) => {
       slidesOffsetBefore={0}
       freeMode={true}
 
-      onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+      // onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
     >
       {animeData.map((item: PageItem, index: number) => {
         return (
@@ -64,7 +65,7 @@ const Slider = ({ animeData, className, title }: sliderProps) => {
             key={index}
             className="!w-auto flex justify-start items-baseline"
           >
-            <Link href={`anime/${item.id}`}>
+            <Link href={`/anime/${item.id}`}>
             <div className="w-[250px]">
             <div className="relative h-[325px] shadow-lg rounded-md">
 
@@ -73,6 +74,9 @@ const Slider = ({ animeData, className, title }: sliderProps) => {
                 alt={item.title.userPreferred || ""}
                 fill
                 className="object-cover rounded-md"
+                sizes="(max-width: 768px) 100vw, 
+                (max-width: 1200px) 33vw, 
+                250px"
                 priority
               />
             </div>

@@ -1,7 +1,7 @@
-const query = () => {
+const query = (type: string) => {
 
   return `query Title($mediaId: Int) {
-    Media(id: $mediaId) {
+    Media(id: $mediaId ,type: ${type || 'ANIME'}) {
         title {
         english
         native

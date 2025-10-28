@@ -59,6 +59,9 @@ const GridTwo = ({ item }: GridTwoProps) => {
                         src={relation.coverImage.extraLarge}
                         alt={item.title.english || ""}
                         fill
+                        sizes="(max-width: 768px) 100vw, 
+                        (max-width: 1200px) 33vw, 
+                        250px"
                         className="object-cover"
                       />
                     </div>

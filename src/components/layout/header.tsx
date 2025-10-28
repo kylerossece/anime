@@ -29,9 +29,9 @@ const Header = () => {
       }`}
     >
       <Container>
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-3 text-slate-300">
           <div className="flex items-center">Anime List</div>
-          <nav className="hidden items-center justify-center gap-x-14 lg:flex text-sm uppercase font-medium">
+          <nav className="hidden items-center justify-center gap-x-14 lg:flex text-sm  font-medium">
             {links.map(({ href, label }, index) => (
               <Link key={index} href={href}>
                 {label}
