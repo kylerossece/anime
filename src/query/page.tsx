@@ -1,4 +1,4 @@
-const query = (
+interface QueryParams {
   sortType: string, 
   page?:number, 
   perPage?: number, 
@@ -8,6 +8,10 @@ const query = (
   season?: string,
   seasonYear?: number,
   format?: string,
+}
+
+const query = (
+{sortType, page, perPage, type, search, genres, season, seasonYear, format}: QueryParams
 ) => {
     
   return `query  {
@@ -20,7 +24,8 @@ const query = (
 
       }
       media(
-          sort: ${sortType},type: ${type || 'ANIME'},      
+          sort: ${sortType},
+          type: ${type || 'ANIME'},      
           ${search ? `search: "${search}",` : ""}
           ${genres ? `genre_in: ${(genres)},` : ""}
           ${format ? `format_in: ${(format)},` : ""} 

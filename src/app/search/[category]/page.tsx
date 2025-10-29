@@ -2,7 +2,7 @@
 
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
-import { AnimePage } from "@/components/sections/anime-page";
+import { Category } from "@/components/sections/category";
 import {getAnime} from '@/api/getAnime';
 import { query } from '@/query/page';
 import type { PageItem, PageResponse } from "@/types/types";
@@ -20,7 +20,7 @@ export default async function Page({params}: PageProps){
   } as const;
   const sort = categoryMap[category];
 
-  const data = await (getAnime(query(sort,1,10))) as PageResponse | null;
+  const data = await (getAnime(query({sortType: sort, page: 1, perPage: 10}))) as PageResponse | null;
   if (!category) return null;
   if (!data) return;
   
@@ -31,7 +31,7 @@ export default async function Page({params}: PageProps){
 return (
   <Section>
     <Container>
-      <AnimePage animeData={animeData} lastPage={lastPage} sort={sort}  />
+      <Category animeData={animeData} lastPage={lastPage} sort={sort}  />
     </Container>
   </Section>
 )

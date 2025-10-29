@@ -14,7 +14,7 @@ interface PageProps{
 }
 
 const limit = 10
-const AnimePage = ({animeData, sort,lastPage} : PageProps) => {
+const Category = ({animeData, sort,lastPage} : PageProps) => {
 
   const [animeList, setAnimeList] = useState<PageItem[]>(animeData);
   const [page, setPage] = useState<number>(2);
@@ -23,19 +23,21 @@ const AnimePage = ({animeData, sort,lastPage} : PageProps) => {
 
   const fetchAnime = useCallback(async () => {
     if(page == lastPage) return;
+
     setIsLoading(true)
     try {
-      const res = (await getAnime(query(sort, page, limit))) as PageResponse | null;
+      const res = (await getAnime(query({sortType: sort, page: page, perPage: limit}))) as PageResponse | null;
       const data = res?.Page?.media || [];
       if(page == lastPage) return;
       setAnimeList((current) => [...current, ...data])
       setPage((page) => page + 1);
+      console.log(page,limit)
     } catch(error){
       console.error(error)
     } finally {
       setIsLoading(false) 
     }
-  }, []);
+  }, [page, sort, lastPage]);
 
   useEffect(() => {
     if(page == lastPage) return;
@@ -96,4 +98,4 @@ const AnimePage = ({animeData, sort,lastPage} : PageProps) => {
         )
 }
 
-export {AnimePage}
+export {Category}

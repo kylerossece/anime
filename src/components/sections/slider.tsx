@@ -30,7 +30,7 @@ const Slider = ({ animeData, className, title }: sliderProps) => {
   };
   // console.log(activeIndex)
   return (
-    <div className={cn('pt-8', className)}>
+    <div className={cn('pt-6', className)}>
       <div className="w-full mb-2 flex justify-between items-end">
         <p className="uppercase font-semibold text-lg leading-5 text-gray-700">{title}</p>
         <p className="flex gap-1.5">
