@@ -6,6 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import type { PageItem, PageResponse } from "@/types/types";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useSelector } from "react-redux";
+import { RootState} from "@/store/store";
+import { SearchPage } from "@/components/sections/searchPage";
 
 interface PageProps{
   animeData: PageItem[]
@@ -20,6 +23,7 @@ const Category = ({animeData, sort,lastPage} : PageProps) => {
   const [page, setPage] = useState<number>(2);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const lastAnimeRef = useRef<HTMLDivElement | null>(null);
+  const { isSearching} = useSelector((state: RootState) => state.search);
 
   const fetchAnime = useCallback(async () => {
     if(page == lastPage) return;
@@ -56,7 +60,8 @@ const Category = ({animeData, sort,lastPage} : PageProps) => {
 
    
         return (
-          <>
+          <>{
+            isSearching ? <SearchPage /> :
           <div className="!w-auto flex justify-start items-baseline flex-wrap gap-5 py-8">
                {
                 animeList.map((item: PageItem, index: number)=> (
@@ -94,6 +99,7 @@ const Category = ({animeData, sort,lastPage} : PageProps) => {
                 </div>
               ))}
                </div>
+              }
                </>
         )
 }

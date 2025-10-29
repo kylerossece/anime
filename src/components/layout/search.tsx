@@ -47,7 +47,7 @@ const Search = () => {
             } finally {
                 dispatch(setIsSearching(false));
             }
-        }, 1000)
+        }, 1500)
 
         setTimeoutId(newTimeoutId);
 
