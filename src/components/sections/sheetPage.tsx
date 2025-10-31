@@ -1,3 +1,4 @@
+"use client";
 import {
   Sheet,
   SheetClose,
@@ -15,10 +16,53 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { AppDispatch, RootState } from "@/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilterValue } from "@/store/slices/searchSlice";
+import { useState, useEffect, useCallback } from "react";
+import {
+  genres as allGenres,
+  format as allFormat,
+  season as allSeason,
+  years as allYears,
+} from "@/data/data";
 
-const SheetPage = () => {
+interface sheetProps {
+  handleSearch?: (currentFilter?: any) => void;
+}
+
+const SheetPage = ({ handleSearch }: sheetProps) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const [tags, setTags] = useState<string[]>([]);
+
+  const { filterValue, hasFilter } = useSelector(
+    (state: RootState) => state.search
+  );
+
+  const genres = filterValue.genres;
+
+  const handleSearchClick = useCallback(
+    (value: string, key: string) => {
+      const updatedTags = tags.includes(value)
+        ? tags.filter((t) => t !== value)
+        : [...tags, value];
+
+      setTags(updatedTags);
+
+      const updatedFilter = {
+        ...filterValue,
+        [key]: updatedTags,
+      };
+
+      dispatch(setFilterValue({ [key]: updatedTags }));
+      handleSearch && handleSearch(updatedFilter);
+    },
+    [tags, filterValue, dispatch, handleSearch]
+  );
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -38,34 +82,24 @@ const SheetPage = () => {
             defaultValue={["item-1"]}
           >
             <AccordionItem value="item-1">
-              <AccordionTrigger>Product Information</AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 text-balance">
-                <p>
-                  Our flagship product combines cutting-edge technology with
-                  sleek design. Built with premium materials, it offers
-                  unparalleled performance and reliability.
-                </p>
-                <p>
-                  Key features include advanced processing capabilities, and an
-                  intuitive user interface designed for both beginners and
-                  experts.
-                </p>
+              <AccordionTrigger>Genres</AccordionTrigger>
+              <AccordionContent className="flex flex-col gap-6 text-balance">
+                {allGenres.map((genre, index) => (
+                  <div className="flex items-center gap-3" key={index}>
+                    <Checkbox
+                      id={genre}
+                      onClick={() => {
+                        handleSearchClick(genre, "genres");
+                      }}
+                    />
+                    <Label htmlFor={genre}>{genre}</Label>
+                  </div>
+                ))}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
               <AccordionTrigger>Shipping Details</AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 text-balance">
-                <p>
-                  We offer worldwide shipping through trusted courier partners.
-                  Standard delivery takes 3-5 business days, while express
-                  shipping ensures delivery within 1-2 business days.
-                </p>
-                <p>
-                  All orders are carefully packaged and fully insured. Track
-                  your shipment in real-time through our dedicated tracking
-                  portal.
-                </p>
-              </AccordionContent>
+              <AccordionContent className="flex flex-col gap-4 text-balance"></AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
               <AccordionTrigger>Return Policy</AccordionTrigger>
@@ -85,7 +119,7 @@ const SheetPage = () => {
           </Accordion>
         </div>
         <SheetFooter>
-          <Button type="submit">Save changes</Button>
+          <Button onClick={handleSearch}>Apply Filter</Button>
           <SheetClose asChild>
             <Button variant="outline">Close</Button>
           </SheetClose>

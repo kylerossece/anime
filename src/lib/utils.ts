@@ -19,4 +19,7 @@ function formatDateWithDay(date: string | number) {
   return moment(date, "D/M/YYYY").format("MMMM D, YYYY");
 }
 
-export { cn, capitalize, formatDate, formatDateWithDay };
+function stringifyArray(arr?: string[]) {
+  arr && arr.length > 0 ? `[${arr.map((a) => `"${a}"`).join(", ")}]` : "";
+}
+export { cn, capitalize, formatDate, formatDateWithDay, stringifyArray };

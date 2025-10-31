@@ -1,39 +1,50 @@
 interface QueryParams {
-  sortType: string, 
-  page?:number, 
-  perPage?: number, 
-  type?:string, 
-  search?:string,
-  genres?: string,
-  season?: string,
-  seasonYear?: number,
-  format?: string,
+  sortType: string;
+  page?: number;
+  perPage?: number;
+  type?: string;
+  search?: string;
+  genres?: string[];
+  tags?: string[];
+  season?: string;
+  seasonYear?: number;
+  format?: string[];
 }
 
-const query = (
-{sortType, page, perPage, type, search, genres, season, seasonYear, format}: QueryParams
-) => {
-    
-  return `query  {
-    Page(page: ${page || 1}, perPage: ${perPage || 50}) {
+const query = ({
+  sortType,
+  page,
+  perPage,
+  type,
+  search,
+  genres,
+  tags,
+  season,
+  seasonYear,
+  format,
+}: QueryParams): string => {
+  const formatArray = (arr?: string[]) =>
+    arr && arr.length ? `[${arr.map((v) => `"${v}"`).join(", ")}]` : "";
+
+  const q = `query {
+    Page(page: ${page ?? 1}, perPage: ${perPage ?? 50}) {
       pageInfo {
         total
         currentPage
         lastPage
         hasNextPage
-
       }
       media(
-          sort: ${sortType},
-          type: ${type || 'ANIME'},      
-          ${search ? `search: "${search}",` : ""}
-          ${genres ? `genre_in: ${(genres)},` : ""}
-          ${format ? `format_in: ${(format)},` : ""} 
-          ${season ? `season: ${season},` : ""} 
-          ${seasonYear ? `seasonYear: ${seasonYear},` : ""} 
-          ) {
-          
-        averageScore
+        sort: ${sortType},
+        type: ${type ?? "ANIME"},
+        ${search ? `search: "${search.replace(/"/g, '\\"')}",` : ""}
+        ${genres && genres.length ? `genre_in: ${formatArray(genres)},` : ""}
+        ${tags && tags.length ? `tag_in: ${formatArray(tags)},` : ""}
+        ${format && format.length ? `format_in: ${formatArray(format)},` : ""}
+        ${season ? `season: ${season},` : ""}
+        ${seasonYear ? `seasonYear: ${seasonYear},` : ""}
+      ) {
+        id
         title {
           english
           native
@@ -47,10 +58,12 @@ const query = (
           extraLarge
         }
         meanScore
-        id
+        averageScore
       }
     }
   }`;
+
+  return q;
 };
 
 export { query };
