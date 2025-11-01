@@ -24,6 +24,8 @@ import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilterValue } from "@/store/slices/searchSlice";
 import { useState, useEffect, useCallback } from "react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { capitalize } from "@/lib/utils";
 import {
   genres as allGenres,
   format as allFormat,
@@ -39,26 +41,22 @@ const SheetPage = ({ handleSearch }: sheetProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const [tags, setTags] = useState<string[]>([]);
 
-  const { filterValue, hasFilter } = useSelector(
-    (state: RootState) => state.search
-  );
-
-  const genres = filterValue.genres;
+  const { filterValue } = useSelector((state: RootState) => state.search);
 
   const handleSearchClick = useCallback(
-    (value: string, key: string) => {
-      const updatedTags = tags.includes(value)
+    (value: string | number, key: string, isArray: boolean) => {
+      const updatedTags = tags.includes(value.toString())
         ? tags.filter((t) => t !== value)
-        : [...tags, value];
+        : [...tags, value.toString()];
 
       setTags(updatedTags);
 
       const updatedFilter = {
         ...filterValue,
-        [key]: updatedTags,
+        [key]: isArray ? updatedTags : value,
       };
 
-      dispatch(setFilterValue({ [key]: updatedTags }));
+      dispatch(setFilterValue({ [key]: isArray ? updatedTags : value }));
       handleSearch && handleSearch(updatedFilter);
     },
     [tags, filterValue, dispatch, handleSearch]
@@ -75,12 +73,8 @@ const SheetPage = ({ handleSearch }: sheetProps) => {
             Make changes to your profile here. Click save when you&apos;re done.
           </SheetDescription>
         </SheetHeader>
-        <div className="grid flex-1 auto-rows-min gap-6 px-4">
-          <Accordion
-            type="multiple"
-            className="w-full"
-            defaultValue={["item-1"]}
-          >
+        <div className="flex-1 overflow-y-auto px-4 no-scrollbar">
+          <Accordion type="single" className="w-full" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger>Genres</AccordionTrigger>
               <AccordionContent className="flex flex-col gap-6 text-balance">
@@ -88,9 +82,9 @@ const SheetPage = ({ handleSearch }: sheetProps) => {
                   <div className="flex items-center gap-3" key={index}>
                     <Checkbox
                       id={genre}
-                      onClick={() => {
-                        handleSearchClick(genre, "genres");
-                      }}
+                      onCheckedChange={() =>
+                        handleSearchClick(genre, "genres", true)
+                      }
                     />
                     <Label htmlFor={genre}>{genre}</Label>
                   </div>
@@ -98,28 +92,65 @@ const SheetPage = ({ handleSearch }: sheetProps) => {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
-              <AccordionTrigger>Shipping Details</AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 text-balance"></AccordionContent>
+              <AccordionTrigger>Format</AccordionTrigger>
+              <AccordionContent className="flex flex-col gap-6 text-balance">
+                {allFormat.map((format, index) => (
+                  <div className="flex items-center gap-3" key={index}>
+                    <Checkbox
+                      id={format}
+                      onCheckedChange={() =>
+                        handleSearchClick(format, "format", true)
+                      }
+                    />
+                    <Label htmlFor={format}>
+                      {capitalize(format.replace("_", " "))}
+                    </Label>
+                  </div>
+                ))}
+              </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
-              <AccordionTrigger>Return Policy</AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 text-balance">
-                <p>
-                  We stand behind our products with a comprehensive 30-day
-                  return policy. If you&apos;re not completely satisfied, simply
-                  return the item in its original condition.
-                </p>
-                <p>
-                  Our hassle-free return process includes free return shipping
-                  and full refunds processed within 48 hours of receiving the
-                  returned item.
-                </p>
+              <AccordionTrigger>Season</AccordionTrigger>
+              <AccordionContent className="">
+                <RadioGroup
+                  defaultValue="comfortable"
+                  className="flex flex-col gap-6 text-balance"
+                  onValueChange={(value: string) =>
+                    handleSearchClick(value, "season", false)
+                  }
+                >
+                  {allSeason.map((season, index) => (
+                    <div className="flex items-center gap-3" key={index}>
+                      <RadioGroupItem value={season} id={season} />
+                      <Label htmlFor={season}>{capitalize(season)}</Label>
+                    </div>
+                  ))}
+                </RadioGroup>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-3">
+              <AccordionTrigger>Season</AccordionTrigger>
+              <AccordionContent className="">
+                <RadioGroup
+                  defaultValue="comfortable"
+                  className="flex flex-col gap-6 text-balance"
+                  onValueChange={(value) =>
+                    handleSearchClick(Number(value), "seasonYear", false)
+                  }
+                >
+                  {allYears.map((year, index) => (
+                    <div className="flex items-center gap-3" key={index}>
+                      <RadioGroupItem value={String(year)} id={String(year)} />
+                      <Label htmlFor={String(year)}>{year}</Label>
+                    </div>
+                  ))}
+                </RadioGroup>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
         </div>
         <SheetFooter>
-          <Button onClick={handleSearch}>Apply Filter</Button>
+          {/* <Button onClick={handleSearch}>Apply Filter</Button> */}
           <SheetClose asChild>
             <Button variant="outline">Close</Button>
           </SheetClose>

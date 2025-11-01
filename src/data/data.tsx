@@ -41,5 +41,5 @@ const genres = [
   "Supernatural",
   "Thriller",
 ];
-
-export { season, format, years, genres };
+const tags = ["4-koma"];
+export { season, format, years, genres, tags };

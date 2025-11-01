@@ -25,7 +25,8 @@ const query = ({
 }: QueryParams): string => {
   const formatArray = (arr?: string[]) =>
     arr && arr.length ? `[${arr.map((v) => `"${v}"`).join(", ")}]` : "";
-
+  const formatEnumArray = (arr?: string[]) =>
+    arr && arr.length ? `[${arr.join(", ")}]` : "";
   const q = `query {
     Page(page: ${page ?? 1}, perPage: ${perPage ?? 50}) {
       pageInfo {
@@ -40,7 +41,11 @@ const query = ({
         ${search ? `search: "${search.replace(/"/g, '\\"')}",` : ""}
         ${genres && genres.length ? `genre_in: ${formatArray(genres)},` : ""}
         ${tags && tags.length ? `tag_in: ${formatArray(tags)},` : ""}
-        ${format && format.length ? `format_in: ${formatArray(format)},` : ""}
+        ${
+          format && format.length
+            ? `format_in: ${formatEnumArray(format)},`
+            : ""
+        }
         ${season ? `season: ${season},` : ""}
         ${seasonYear ? `seasonYear: ${seasonYear},` : ""}
       ) {
