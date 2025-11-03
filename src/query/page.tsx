@@ -57,6 +57,7 @@ const query = ({
         }
         genres
         seasonYear
+        format
         coverImage {
           color
           large
@@ -64,6 +65,22 @@ const query = ({
         }
         meanScore
         averageScore
+            episodes
+                season
+          nextAiringEpisode {
+            timeUntilAiring
+            episode
+            airingAt
+            id
+          }
+        studios {
+        edges {
+          node {
+            name
+          }
+          isMain
+        }
+    }
       }
     }
   }`;

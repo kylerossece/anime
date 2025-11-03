@@ -17,13 +17,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Badge } from "@/components/ui/badge";
+// import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilterValue } from "@/store/slices/searchSlice";
-import { useState, useEffect, useCallback } from "react";
+import { useState,useCallback } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { capitalize } from "@/lib/utils";
 import {
@@ -33,8 +33,14 @@ import {
   years as allYears,
 } from "@/data/data";
 
+interface filterType {
+  genres?: string[] | undefined | null;
+  format?: string[] |undefined | null;
+  season?: string | undefined | null;
+  seasonYear?: number | undefined |null;
+}
 interface sheetProps {
-  handleSearch?: (currentFilter?: any) => void;
+  handleSearch?: (currentFilter?: filterType) => void;
 }
 
 const SheetPage = ({ handleSearch }: sheetProps) => {
@@ -57,7 +63,7 @@ const SheetPage = ({ handleSearch }: sheetProps) => {
       };
 
       dispatch(setFilterValue({ [key]: isArray ? updatedTags : value }));
-      handleSearch && handleSearch(updatedFilter);
+      if (handleSearch) handleSearch(updatedFilter);
     },
     [tags, filterValue, dispatch, handleSearch]
   );
@@ -128,7 +134,7 @@ const SheetPage = ({ handleSearch }: sheetProps) => {
                 </RadioGroup>
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="item-3">
+            <AccordionItem value="item-4">
               <AccordionTrigger>Season</AccordionTrigger>
               <AccordionContent className="">
                 <RadioGroup

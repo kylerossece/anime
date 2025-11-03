@@ -104,8 +104,11 @@ export interface PageItem {
   id: number;
   averageScore: number | null;
   meanScore: number | null;
+  season: string ;
   seasonYear: number | null;
+  episodes: number | null;
   genres: string[];
+  format: string;
   title: {
     english: string | null;
     native: string | null;
@@ -116,6 +119,22 @@ export interface PageItem {
     extraLarge: string;
     large: string;
   };
+  nextAiringEpisode?: {
+    timeUntilAiring: number;
+    episode: number;
+    airingAt: number
+    id: number;
+  }
+  studios: {
+    edges: [
+      {
+      node: {
+        name: string;
+      }
+      isMain: boolean;
+    }
+    ]
+  }
 }
 
 export interface PageData {

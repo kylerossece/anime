@@ -22,4 +22,8 @@ function formatDateWithDay(date: string | number) {
 function stringifyArray(arr?: string[]) {
   arr && arr.length > 0 ? `[${arr.map((a) => `"${a}"`).join(", ")}]` : "";
 }
-export { cn, capitalize, formatDate, formatDateWithDay, stringifyArray };
+
+function convertToDays(seconds: number){
+  return Math.floor((seconds)/(60*60*24));
+}
+export { cn, capitalize, formatDate, formatDateWithDay, stringifyArray, convertToDays };

@@ -7,11 +7,16 @@ import { Pagination } from "swiper/modules";
 // useState, 
 import { useRef } from "react";
 import { Swiper as SwiperClass } from "swiper/types";
-import Image from "next/image";
-import Link from "next/link";
 import {Icons} from '@/components/ui/icons'
 import type { PageItem } from "@/types/types";
+import { SliderCard } from "@/components/sections/sliderCard";
 import { cn } from "@/lib/utils";
+import {
+  HoverCard,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
+import { SliderLink } from "./sliderLink";
+
 
 interface sliderProps {
   animeData: PageItem[];
@@ -30,67 +35,59 @@ const Slider = ({ animeData, className, title }: sliderProps) => {
   };
   // console.log(activeIndex)
   return (
-    <div className={cn('pt-6', className)}>
-      <div className="w-full mb-2 flex justify-between items-end">
-        <p className="uppercase font-semibold text-lg leading-5 text-gray-700">{title}</p>
+
+    <div className={cn("pt-6", className)}>
+      <div className="w-full mb-4 flex justify-between items-end">
+        <p className="uppercase font-semibold text-lg leading-5 text-gray-700">
+          {title}
+        </p>
         <p className="flex gap-1.5">
-        <span className="cursor-pointer p-2 bg-gray-200 rounded-full hover:bg-gray-800 hover:text-white transition-all duration-200 ease-in" onClick={scrollPreviousSlide}><Icons.ChevronLeft /></span>
-        <span className="cursor-pointer p-2  bg-gray-200 rounded-full hover:bg-gray-800 hover:text-white transition-all duration-200 ease-in" onClick={scrollNextSlide}><Icons.ChevronRight /></span>
+          <span
+            className="cursor-pointer p-2 bg-gray-200 rounded-full hover:bg-gray-800 hover:text-white transition-all duration-200 ease-in"
+            onClick={scrollPreviousSlide}
+          >
+            <Icons.ChevronLeft />
+          </span>
+          <span
+            className="cursor-pointer p-2 bg-gray-200 rounded-full hover:bg-gray-800 hover:text-white transition-all duration-200 ease-in"
+            onClick={scrollNextSlide}
+          >
+            <Icons.ChevronRight />
+          </span>
         </p>
       </div>
-    <Swiper
-      onBeforeInit={(swiper) => {
-        swiperRef.current = swiper;
-      }}
-      modules={[Pagination]}
-      grabCursor={true}
 
-      slidesPerView="auto"
-      speed={800}
-      slideToClickedSlide={true}
-      touchEventsTarget={"container"}
-
-      spaceBetween={30}
-      slidesOffsetAfter={30}
-      slidesOffsetBefore={0}
-      freeMode={true}
-
-      // onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-    >
-      {animeData.map((item: PageItem, index: number) => {
-        return (
+      <Swiper
+        onBeforeInit={(swiper) => {
+          swiperRef.current = swiper;
+        }}
+        modules={[Pagination]}
+        grabCursor
+        slidesPerView="auto"
+        speed={800}
+        slideToClickedSlide
+        touchEventsTarget="container"
+        spaceBetween={30}
+        slidesOffsetAfter={30}
+        freeMode
+      >
+        {animeData.map((item: PageItem, index: number) => (
+          <SwiperSlide key={index} className="!w-auto flex justify-start items-baseline">
         
-   
-          <SwiperSlide
-            key={index}
-            className="!w-auto flex justify-start items-baseline"
-          >
-            <Link href={`/anime/${item.id}`}>
-            <div className="w-[250px]">
-            <div className="relative h-[325px] shadow-lg rounded-md">
-
-              <Image
-                src={item.coverImage.extraLarge}
-                alt={item.title.userPreferred || ""}
-                fill
-                className="object-cover rounded-md"
-                sizes="(max-width: 768px) 100vw, 
-                (max-width: 1200px) 33vw, 
-                250px"
-                priority
-              />
-            </div>
-            <p className="pt-2 ml-0.5 font-medium line-clamp-2 text-sm">{item.title.english || item.title.userPreferred || ''}</p>
-          </div>
-            </Link>
-
+        <HoverCard>
+        <HoverCardTrigger asChild>
+                 <div>
+                <SliderLink item={item}></SliderLink>
+                </div>
+                </HoverCardTrigger>
+               <SliderCard item={item}></SliderCard>
+                </HoverCard>
+      
           </SwiperSlide>
- 
-     
-        );
-      })}
-    </Swiper>
+        ))}
+      </Swiper>
     </div>
+
   );
 };
 
