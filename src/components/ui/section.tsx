@@ -11,7 +11,7 @@ const Section = ({
     <section
       id={id}
       className={cn(
-        "relative min-h-svh flex flex-col w-full lg:px-32 px-14 pt-14 z-10 bg-zinc-100",
+        "relative min-h-svh flex flex-col w-full lg:px-32 px-14 pt-14 z-10 bg-zinc-100 dark:bg-slate-900 transition-colors duration-300 ease-in-out",
         className
       )}
       {...props}

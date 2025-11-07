@@ -3,7 +3,9 @@ import {
   IoChevronForward,
   IoChevronDown,
   IoChevronUp,
+  IoFilter,
 } from "react-icons/io5";
+import { FaSun, FaMoon } from "react-icons/fa";
 import { PiTelevisionSimpleBold } from "react-icons/pi";
 
 import React from "react";
@@ -16,6 +18,9 @@ const Icons = {
   ChevronUp: IoChevronUp,
   ChevronDown: IoChevronDown,
   Television: PiTelevisionSimpleBold,
+  Filter: IoFilter,
+  Sun: FaSun,
+  Moon: FaMoon,
 } as const;
 
 export { Icons, type IconProps };

@@ -4,19 +4,15 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
 import { Pagination } from "swiper/modules";
-// useState, 
+// useState,
 import { useRef } from "react";
 import { Swiper as SwiperClass } from "swiper/types";
-import {Icons} from '@/components/ui/icons'
+import { Icons } from "@/components/ui/icons";
 import type { PageItem } from "@/types/types";
-import { SliderCard } from "@/components/sections/sliderCard";
 import { cn } from "@/lib/utils";
-import {
-  HoverCard,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card"
-import { SliderLink } from "./sliderLink";
-
+import { HoverCardItems } from "@/components/ui/hoverCardItems";
+import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
+import { CardLink } from "@/components/ui/cardLink";
 
 interface sliderProps {
   animeData: PageItem[];
@@ -35,10 +31,9 @@ const Slider = ({ animeData, className, title }: sliderProps) => {
   };
   // console.log(activeIndex)
   return (
-
     <div className={cn("pt-6", className)}>
       <div className="w-full mb-4 flex justify-between items-end">
-        <p className="uppercase font-semibold text-lg leading-5 text-gray-700">
+        <p className="uppercase font-semibold text-lg leading-5 text-gray-700 dark:text-gray-300">
           {title}
         </p>
         <p className="flex gap-1.5">
@@ -72,22 +67,22 @@ const Slider = ({ animeData, className, title }: sliderProps) => {
         freeMode
       >
         {animeData.map((item: PageItem, index: number) => (
-          <SwiperSlide key={index} className="!w-auto flex justify-start items-baseline">
-        
-        <HoverCard>
-        <HoverCardTrigger asChild>
-                 <div>
-                <SliderLink item={item}></SliderLink>
+          <SwiperSlide
+            key={index}
+            className="!w-auto grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] justify-items-center gap-4"
+          >
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <div>
+                  <CardLink item={item}></CardLink>
                 </div>
-                </HoverCardTrigger>
-               <SliderCard item={item}></SliderCard>
-                </HoverCard>
-      
+              </HoverCardTrigger>
+              <HoverCardItems item={item}></HoverCardItems>
+            </HoverCard>
           </SwiperSlide>
         ))}
       </Swiper>
     </div>
-
   );
 };
 

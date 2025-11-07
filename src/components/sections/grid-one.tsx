@@ -1,6 +1,6 @@
 "use client";
 import type { Media } from "@/types/types";
-import { Paragraph,Caption } from "@/components/ui/typography";
+import { Paragraph, Caption } from "@/components/ui/typography";
 import { capitalize, formatDateWithDay } from "@/lib/utils";
 import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +13,7 @@ const GridOne = ({ item }: GridOneProps) => {
   const visibleTags = showTags ? item.tags : item.tags.slice(0, 5);
 
   return (
-    <div className="lg:w-1/5 w-full flex flex-col gap-3   px-7 py-5 text-sm text-gray-700">
+    <div className="lg:w-1/5 w-full flex flex-col gap-3   px-7 py-5 text-sm text-gray-700 dark:text-gray-300">
       <div>
         <Caption className="font-semibold ">Season</Caption>
         <Paragraph className=" ">{capitalize(item.season)}</Paragraph>
@@ -68,7 +68,11 @@ const GridOne = ({ item }: GridOneProps) => {
         <Caption className="font-semibold  ">Genres</Caption>
         <Paragraph className="text-gray-700 flex flex-wrap gap-1.5">
           {item.genres.map((genre, index) => (
-            <Badge key={index} variant="secondary" className="text-gray-700">
+            <Badge
+              key={index}
+              variant="secondary"
+              className="text-gray-700  dark:text-gray-300"
+            >
               {genre}
             </Badge>
           ))}
@@ -78,14 +82,18 @@ const GridOne = ({ item }: GridOneProps) => {
         <Caption className="font-semibold  ">Tags</Caption>
         <Paragraph className="text-gray-700 flex flex-wrap gap-1.5">
           {visibleTags.map((tag) => (
-            <Badge key={tag.id} variant="secondary" className="text-gray-700">
+            <Badge
+              key={tag.id}
+              variant="secondary"
+              className="text-gray-700 dark:text-gray-300"
+            >
               {tag.name}
             </Badge>
           ))}
         </Paragraph>
         <button
           onClick={() => setShowTags(!showTags)}
-          className="text-xs ps-1 text-center text-gray-700 hover:underline w-fit cursor-pointer flex gap-1 items-center"
+          className="text-xs ps-1 text-center text-gray-700  dark:text-gray-300 hover:underline w-fit cursor-pointer flex gap-1 items-center"
         >
           {showTags ? "Show less" : "Show more"}{" "}
           {showTags ? <Icons.ChevronUp /> : <Icons.ChevronDown />}

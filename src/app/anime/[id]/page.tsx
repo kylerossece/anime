@@ -35,7 +35,7 @@ export default async function Page({ params }: PageProps) {
           className="object-cover"
         ></Image>
       </div> */}
-      <Section className="text-gray-800">
+      <Section className="text-gray-800 dark:text-gray-300">
         <Container className="">
           <Card>
             <div className="flex gap-6 md:flex-nowrap flex-wrap px-6 py-3">

@@ -29,7 +29,6 @@ const Search = () => {
         clearTimeout(timeoutRef.current);
       }
 
-      // check active filters
       const isFiltered =
         (currentFilter.genres?.length ?? 0) > 0 ||
         (currentFilter.format?.length ?? 0) > 0 ||
@@ -37,7 +36,7 @@ const Search = () => {
         currentFilter.seasonYear != null;
 
       dispatch(setHasFilter(isFiltered));
-      console.log("Is Filtered:", isFiltered);
+      // console.log("Is Filtered:", isFiltered);
 
       if (!value && !isFiltered) {
         dispatch(setData([]));
@@ -76,7 +75,7 @@ const Search = () => {
   return (
     <div className="pt-12 flex justify-between flex-nowrap items-center">
       <div>
-        <Input ref={searchRef} onInput={() => handleSearch()} />
+        <Input type="search" ref={searchRef} onInput={() => handleSearch()} />
       </div>
       <SheetPage handleSearch={handleSearch} />
     </div>

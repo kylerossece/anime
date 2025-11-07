@@ -23,9 +23,10 @@ import { Label } from "@/components/ui/label";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilterValue } from "@/store/slices/searchSlice";
-import { useState,useCallback } from "react";
+import { useState, useCallback } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { capitalize } from "@/lib/utils";
+import { Icons } from "@/components/ui/icons";
 import {
   genres as allGenres,
   format as allFormat,
@@ -33,14 +34,17 @@ import {
   years as allYears,
 } from "@/data/data";
 
-interface filterType {
-  genres?: string[] | undefined | null;
-  format?: string[] |undefined | null;
-  season?: string | undefined | null;
-  seasonYear?: number | undefined |null;
-}
 interface sheetProps {
-  handleSearch?: (currentFilter?: filterType) => void;
+  handleSearch?: (
+    currentFilter?:
+      | {
+          genres: string[];
+          season: string;
+          seasonYear: number | null;
+          format: string[];
+        }
+      | undefined
+  ) => void;
 }
 
 const SheetPage = ({ handleSearch }: sheetProps) => {
@@ -70,7 +74,10 @@ const SheetPage = ({ handleSearch }: sheetProps) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Open</Button>
+        <Button variant="outline">
+          <Icons.Filter />
+          Filter
+        </Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
@@ -88,6 +95,9 @@ const SheetPage = ({ handleSearch }: sheetProps) => {
                   <div className="flex items-center gap-3" key={index}>
                     <Checkbox
                       id={genre}
+                      checked={
+                        filterValue.genres && filterValue.genres.includes(genre)
+                      }
                       onCheckedChange={() =>
                         handleSearchClick(genre, "genres", true)
                       }
@@ -104,6 +114,10 @@ const SheetPage = ({ handleSearch }: sheetProps) => {
                   <div className="flex items-center gap-3" key={index}>
                     <Checkbox
                       id={format}
+                      checked={
+                        filterValue.format &&
+                        filterValue.format.includes(format)
+                      }
                       onCheckedChange={() =>
                         handleSearchClick(format, "format", true)
                       }
@@ -120,6 +134,7 @@ const SheetPage = ({ handleSearch }: sheetProps) => {
               <AccordionContent className="">
                 <RadioGroup
                   defaultValue="comfortable"
+                  value={filterValue.season || ""}
                   className="flex flex-col gap-6 text-balance"
                   onValueChange={(value: string) =>
                     handleSearchClick(value, "season", false)
@@ -139,6 +154,7 @@ const SheetPage = ({ handleSearch }: sheetProps) => {
               <AccordionContent className="">
                 <RadioGroup
                   defaultValue="comfortable"
+                  value={String(filterValue.seasonYear || "")}
                   className="flex flex-col gap-6 text-balance"
                   onValueChange={(value) =>
                     handleSearchClick(Number(value), "seasonYear", false)
