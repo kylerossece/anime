@@ -2,8 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getAnime } from "@/api/getAnime";
 import { query } from "@/query/page";
-import Image from "next/image";
-import Link from "next/link";
+
 import type { PageItem, PageResponse } from "@/types/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSelector } from "react-redux";
@@ -74,10 +73,10 @@ const Category = ({ animeData, sort, lastPage }: PageProps) => {
       {isSearching || data.length > 0 || hasFilter ? (
         <SearchPage></SearchPage>
       ) : (
-        <div className="!w-auto  grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] justify-items-center gap-4 py-10 dark:text-gray-300">
+        <div className="!w-auto  grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] justify-items-center gap-4 py-10 dark:text-gray-300 transition-colors duration-300 ease-in-out">
           {animeList.map((item: PageItem, index: number) => (
             <div key={index}>
-              <HoverCard>
+              <HoverCard openDelay={200} closeDelay={400}>
                 <HoverCardTrigger asChild>
                   <div
                     ref={index === animeList.length - 1 ? lastAnimeRef : null}

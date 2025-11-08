@@ -7,7 +7,7 @@ interface SliderLinkProps {
 const CardLink = ({ item }: SliderLinkProps) => {
   return (
     <Link href={`/anime/${item.id}`}>
-      <div className="w-[250px]">
+      <div className="w-[250px] fade-animation">
         <div className="relative h-[325px] shadow-lg rounded-md">
           <Image
             src={item.coverImage.extraLarge}
@@ -17,7 +17,6 @@ const CardLink = ({ item }: SliderLinkProps) => {
             sizes="(max-width: 768px) 100vw, 
               (max-width: 1200px) 33vw, 
               250px"
-            priority
           />
         </div>
         <p className="pt-2 ml-0.5 font-medium line-clamp-2 text-sm dark:text-gray-300 transition-colors duration-300 ease-in-out">

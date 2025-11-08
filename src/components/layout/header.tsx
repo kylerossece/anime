@@ -2,48 +2,54 @@
 import { Container } from "@/components/ui/container";
 import { useScrollNav } from "@/hooks/use-scroll-nav";
 import Link from "next/link";
-
+import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
+import { NavTooltip } from "@/components/ui/nav-tooltip";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { NavCard } from "@/components/ui/nav-card";
 import { Icons } from "@/components/ui/icons";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  TooltipProvider,
-} from "@/components/ui/tooltip";
-import { useEffect, useState } from "react";
-
 const Header = () => {
   const { isScrolled } = useScrollNav();
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-
-  useEffect(() => {
-    const storageTheme = localStorage.getItem("theme") as "light" | "dark";
-    const initialTheme = storageTheme || "light";
-    setTheme(initialTheme);
-    document.body.setAttribute("data-theme", initialTheme);
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.body.setAttribute("data-theme", newTheme);
-  };
 
   const links = [
     {
       label: "Anime",
       href: "/anime",
+      title: "Anime",
+      Icon: Icons.Play,
+      links: [
+        {
+          label: "Trending",
+          href: "/search/anime/trending",
+        },
+        {
+          label: "Popular",
+          href: "/search/anime/popular",
+        },
+        { label: "Top", href: "/search/anime/top" },
+      ],
     },
     {
       label: "Manga",
       href: "/manga",
+      title: "Manga",
+      Icon: Icons.Book,
+      links: [
+        {
+          label: "Trending",
+          href: "/search/manga/trending",
+        },
+        {
+          label: "Popular",
+          href: "/search/manga/popular",
+        },
+        { label: "Top", href: "/search/manga/top" },
+      ],
     },
     {
       label: "Characters",
       href: "/characters",
     },
-  ] as const;
+  ];
 
   return (
     <TooltipProvider>
@@ -53,32 +59,25 @@ const Header = () => {
         }`}
       >
         <Container>
-          <div className="grid grid-cols-3 text-slate-300">
+          <div className="flex justify-between text-slate-300">
             <div className="flex items-center">Anime List</div>
-            <nav className="hidden items-center justify-center gap-x-14 lg:flex text-sm  font-medium">
-              {links.map(({ href, label }, index) => (
-                <Link key={index} href={href}>
-                  {label}
-                </Link>
-              ))}
+            <nav className="hidden items-center justify-center gap-x-16 lg:flex text-sm  font-medium">
+              {links.map((item, index) => {
+                return index === links.length - 1 ? (
+                  <Link key={index} href={item.href}>
+                    {item.label}
+                  </Link>
+                ) : (
+                  <HoverCard key={index} openDelay={100} closeDelay={100}>
+                    <HoverCardTrigger asChild>
+                      <Link href={item.href}>{item.label}</Link>
+                    </HoverCardTrigger>
+                    <NavCard item={item} />
+                  </HoverCard>
+                );
+              })}
+              <NavTooltip />
             </nav>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <span
-                  onClick={toggleTheme}
-                  className="inline-flex items-center justify-end text-lg cursor-pointer"
-                >
-                  {theme === "light" ? <Icons.Moon /> : <Icons.Sun />}
-                </span>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>
-                  {theme === "light"
-                    ? "Switch to dark mode"
-                    : "Switch to light mode"}
-                </p>
-              </TooltipContent>
-            </Tooltip>
           </div>
         </Container>
       </header>

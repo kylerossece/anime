@@ -10,7 +10,7 @@ interface HoverCardItemsProps {
 const HoverCardItems = ({ item }: HoverCardItemsProps) => {
   return (
     <HoverCardContent side="right" align="start" alignOffset={0} sideOffset={5}>
-      <div className="flex flex-col">
+      <div className="flex flex-col break-all whitespace-normal">
         {item.nextAiringEpisode ? (
           <Caption>{`Ep. ${item.nextAiringEpisode.episode} airing in 
         ${convertToDays(item.nextAiringEpisode.timeUntilAiring)}    ${

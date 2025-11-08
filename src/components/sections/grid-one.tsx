@@ -13,7 +13,7 @@ const GridOne = ({ item }: GridOneProps) => {
   const visibleTags = showTags ? item.tags : item.tags.slice(0, 5);
 
   return (
-    <div className="lg:w-1/5 w-full flex flex-col gap-3   px-7 py-5 text-sm text-gray-700 dark:text-gray-300">
+    <div className="lg:w-1/5 w-full flex flex-col gap-3   px-7 py-5 text-sm text-gray-700 dark:text-gray-300 transition-colors duration-200 ease-in">
       <div>
         <Caption className="font-semibold ">Season</Caption>
         <Paragraph className=" ">{capitalize(item.season)}</Paragraph>

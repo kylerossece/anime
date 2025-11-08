@@ -29,11 +29,11 @@ const Slider = ({ animeData, className, title }: sliderProps) => {
   const scrollNextSlide = () => {
     swiperRef.current?.slideNext();
   };
-  // console.log(activeIndex)
+
   return (
     <div className={cn("pt-6", className)}>
       <div className="w-full mb-4 flex justify-between items-end">
-        <p className="uppercase font-semibold text-lg leading-5 text-gray-700 dark:text-gray-300">
+        <p className="uppercase font-semibold text-lg leading-5 text-gray-700 dark:text-gray-300 transition-all duration-200 ease-in">
           {title}
         </p>
         <p className="flex gap-1.5">
@@ -60,18 +60,19 @@ const Slider = ({ animeData, className, title }: sliderProps) => {
         grabCursor
         slidesPerView="auto"
         speed={800}
-        slideToClickedSlide
         touchEventsTarget="container"
         spaceBetween={30}
         slidesOffsetAfter={30}
         freeMode
+        observer
+        observeParents
       >
         {animeData.map((item: PageItem, index: number) => (
           <SwiperSlide
             key={index}
-            className="!w-auto grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] justify-items-center gap-4"
+            className="!w-auto flex justify-items-center"
           >
-            <HoverCard>
+            <HoverCard openDelay={200} closeDelay={400}>
               <HoverCardTrigger asChild>
                 <div>
                   <CardLink item={item}></CardLink>
