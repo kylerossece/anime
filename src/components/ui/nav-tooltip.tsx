@@ -10,12 +10,20 @@ import { useEffect, useState } from "react";
 const NavTooltip = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
+  const [animate, setAnimate] = useState(false);
+
   useEffect(() => {
     const storageTheme = localStorage.getItem("theme") as "light" | "dark";
     const initialTheme = storageTheme || "light";
     setTheme(initialTheme);
     document.body.setAttribute("data-theme", initialTheme);
   }, []);
+
+  useEffect(() => {
+    setAnimate(true);
+    const timeout = setTimeout(() => setAnimate(false), 800);
+    return () => clearTimeout(timeout);
+  }, [theme]);
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -28,7 +36,9 @@ const NavTooltip = () => {
       <TooltipTrigger asChild>
         <span
           onClick={toggleTheme}
-          className="inline-flex items-center justify-end text-lg cursor-pointer"
+          className={`inline-flex items-center justify-end text-lg cursor-pointer ${
+            animate ? "fade-animation" : ""
+          }`}
         >
           {theme === "light" ? <Icons.Moon /> : <Icons.Sun />}
         </span>

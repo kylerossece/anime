@@ -104,7 +104,7 @@ export interface PageItem {
   id: number;
   averageScore: number | null;
   meanScore: number | null;
-  season: string ;
+  season: string;
   seasonYear: number | null;
   episodes: number | null;
   genres: string[];
@@ -122,31 +122,56 @@ export interface PageItem {
   nextAiringEpisode?: {
     timeUntilAiring: number;
     episode: number;
-    airingAt: number
+    airingAt: number;
     id: number;
-  }
+  };
   studios: {
     edges: [
       {
-      node: {
-        name: string;
+        node: {
+          name: string;
+        };
+        isMain: boolean;
       }
-      isMain: boolean;
-    }
-    ]
-  }
+    ];
+  };
 }
 
 export interface PageData {
-  pageInfo:{
+  pageInfo: {
     total: number;
     currentPage: number;
     lastPage: number;
     hasNextPage: boolean;
-  }
+  };
   media: PageItem[];
 }
 
 export interface PageResponse {
   Page: PageData;
+}
+
+export interface CharacterDetails {
+  name?: string;
+  image?: {
+    large: string;
+  };
+  id: number;
+}
+
+export interface CharactersItem {
+  characters: CharacterDetails[];
+}
+export interface CharactersData {
+  pageInfo: {
+    total: number;
+    currentPage: number;
+    lastPage: number;
+    hasNextPage: boolean;
+  };
+  characters: CharactersItem[];
+}
+
+export interface CharactersResponse {
+  Page: CharactersData;
 }

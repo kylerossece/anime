@@ -5,7 +5,7 @@ import {
   IoChevronUp,
   IoFilter,
 } from "react-icons/io5";
-import { FaSun, FaMoon } from "react-icons/fa";
+import { FaSun, FaMoon, FaBars } from "react-icons/fa";
 import { PiTelevisionSimpleBold } from "react-icons/pi";
 import { IoIosTrendingUp } from "react-icons/io";
 import { IoTrophyOutline, IoBook } from "react-icons/io5";
@@ -29,6 +29,7 @@ const Icons = {
   Popular: TbChartBarPopular,
   Play: FaPlay,
   Book: IoBook,
+  Bars: FaBars,
 } as const;
 
 export { Icons, type IconProps };

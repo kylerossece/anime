@@ -7,6 +7,7 @@ import { NavTooltip } from "@/components/ui/nav-tooltip";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { NavCard } from "@/components/ui/nav-card";
 import { Icons } from "@/components/ui/icons";
+import { MobileNav } from "@/components/ui/mobile-nav";
 const Header = () => {
   const { isScrolled } = useScrollNav();
 
@@ -78,6 +79,7 @@ const Header = () => {
               })}
               <NavTooltip />
             </nav>
+            <MobileNav links={links} />
           </div>
         </Container>
       </header>
