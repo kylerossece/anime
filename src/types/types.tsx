@@ -152,11 +152,19 @@ export interface PageResponse {
 }
 
 export interface CharacterDetails {
-  name?: string;
-  image?: {
-    large: string;
-  };
+  name: { full: string };
+  image: { large: string };
   id: number;
+  description: string;
+  age: number;
+  gender: string;
+  favourites: number;
+  dateOfBirth: {
+    year: number
+    month: number
+    day: number;
+  }
+  bloodType: string
 }
 
 export interface CharactersItem {
@@ -169,7 +177,7 @@ export interface CharactersData {
     lastPage: number;
     hasNextPage: boolean;
   };
-  characters: CharactersItem[];
+  characters: CharacterDetails[];
 }
 
 export interface CharactersResponse {

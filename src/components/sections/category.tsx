@@ -65,7 +65,7 @@ const Category = ({ animeData, sort, lastPage }: PageProps) => {
     return () => {
       if (lastAnime) observer.unobserve(lastAnime);
     };
-  }, [fetchAnime, animeList, hasFilter, isSearching]);
+  }, [fetchAnime, animeList, hasFilter, isSearching, lastPage, page]);
 
   return (
     <>

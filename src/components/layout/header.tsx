@@ -48,7 +48,7 @@ const Header = () => {
     },
     {
       label: "Characters",
-      href: "/characters",
+      href: "/search/characters",
     },
   ];
 
@@ -71,7 +71,7 @@ const Header = () => {
                 ) : (
                   <HoverCard key={index} openDelay={100} closeDelay={100}>
                     <HoverCardTrigger asChild>
-                      <Link href={item.href}>{item.label}</Link>
+                      <Link href={item.href || '/'}>{item.label}</Link>
                     </HoverCardTrigger>
                     <NavCard item={item} />
                   </HoverCard>

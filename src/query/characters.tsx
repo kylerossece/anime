@@ -5,23 +5,33 @@ interface charactersQuery {
 }
 
 const query = ({ search, perPage, page }: charactersQuery) => {
-  return `query ($search: String) {
-  Page(perPage: ${perPage || 50}, page: ${page || 1}) {
-      pageInfo {
-        total
-        currentPage
-        lastPage
-        hasNextPage
-      }
-    characters(search: ${search} sort: [FAVOURITES_DESC]) {
+  return `query ( $search:String = ${search || null},$perPage: Int = ${perPage || 10}, $page: Int = ${page || 1}) {
+  Page(perPage: $perPage, page: $page) {
+    pageInfo {
+      total
+      currentPage
+      lastPage
+      hasNextPage
+    }
+    characters(search: $search, sort: [FAVOURITES_DESC]) {
+      id
       name {
         full
       }
       image {
         large
       }
-      id
-     
+      description
+      age
+      siteUrl
+      gender
+      favourites
+      dateOfBirth {
+        year
+        month
+        day
+      }
+      bloodType
     }
   }
 }`;
