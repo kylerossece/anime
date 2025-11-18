@@ -44,6 +44,7 @@ const Search = () => {
           const res = (await getAnime(queryVal)) as CharactersResponse | null;
           const searchData = res?.Page?.characters || [];
           dispatch(setData(searchData));
+          console.log('queryVal', queryVal)
         } catch (error) {
           console.error(error);
         } finally {

@@ -6,7 +6,10 @@ import { query } from "@/query/characters";
 import Image from "next/image";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
-
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import {SearchPage} from '@/components/sections/characterSearchPage';
+import {Search} from '@/components/layout/characterSearch'
 interface CharactersListProp{
     charactersData: CharacterDetails[]
     lastPage: number
@@ -19,6 +22,9 @@ const CharacterList = ({charactersData, lastPage} : CharactersListProp) => {
       const [page, setPage] = useState<number>(2);
       const [isLoading, setIsLoading] = useState<boolean>(false);
       const lastCharactersRef = useRef<HTMLDivElement | null>(null);
+        const { data, isSearching } = useSelector(
+          (state: RootState) => state.character
+        );
 
       const fetchCharacters = useCallback(async () => {
         if (page == lastPage) return;
@@ -52,8 +58,14 @@ const CharacterList = ({charactersData, lastPage} : CharactersListProp) => {
         return () => {
           if (lastCharacters) observer.unobserve(lastCharacters);
         };
-      }, [fetchCharacters, charactersList, page, lastPage]);
-    return (     <div className="!w-auto  grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] justify-items-center gap-4 py-10 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+      }, [fetchCharacters, charactersList, isSearching,lastPage, page ]);
+    return (     
+    <>
+     <Search></Search>
+      {isSearching || data.length > 0  ? (
+        <SearchPage></SearchPage>
+      ) :(
+    <div className="!w-auto  grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] justify-items-center gap-4 py-10 dark:text-gray-300 transition-colors duration-300 ease-in-out">
         {charactersList.map((item:CharacterDetails, index: number) => (
           <div key={index}>
                 <div
@@ -91,6 +103,8 @@ const CharacterList = ({charactersData, lastPage} : CharactersListProp) => {
             </div>
           ))}
       </div>)
+}
+      </>)
 }
 
 export {CharacterList}

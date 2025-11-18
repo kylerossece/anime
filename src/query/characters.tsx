@@ -5,7 +5,7 @@ interface charactersQuery {
 }
 
 const query = ({ search, perPage, page }: charactersQuery) => {
-  return `query ( $search:String = ${search || null},$perPage: Int = ${perPage || 10}, $page: Int = ${page || 1}) {
+  return `query ( $search:String = ${search ? `"${search}"` : null },$perPage: Int = ${perPage || 10000}, $page: Int = ${page || 1}) {
   Page(perPage: $perPage, page: $page) {
     pageInfo {
       total
